@@ -46,6 +46,14 @@ export default function ProgressiveProfileModal() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ uid, fields: customFields }),
     }).catch(() => {});
+
+    if (storageKey === 'ppmodal_stage1_done') {
+      const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
+      const pageViews = parseInt(localStorage.getItem(key) || '0', 10);
+      if (pageViews >= 6) {
+        setTimeout(() => setStage(2), 3000);
+      }
+    }
   };
 
   const handleStage1 = (e) => {
