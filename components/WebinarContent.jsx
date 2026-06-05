@@ -10,13 +10,23 @@ export default function WebinarContent({ slug }) {
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
-    if (!PIANO.resourceId) return;
-    const tp = window.tp || [];
-    tp.push(['init', function () {
-      window.tp.api.callApi('/access/check', { rid: PIANO.resourceId }, function (response) {
-        if (response?.access?.granted || response?.data?.access?.granted) setHasAccess(true);
-      });
-    }]);
+    const checkAccess = () => {
+      if (PIANO.resourceId) {
+        window.tp.api.callApi('/access/check', { rid: PIANO.resourceId }, function (response) {
+          if (response?.access?.granted || response?.data?.access?.granted) setHasAccess(true);
+        });
+      } else {
+        const user = window.tp?.pianoId?.getUser?.();
+        if (user?.uid) setHasAccess(true);
+      }
+    };
+
+    if (window.tp?.pianoId?.getUser) {
+      checkAccess();
+    } else {
+      window.tp = window.tp || [];
+      window.tp.push(['init', checkAccess]);
+    }
   }, [slug]);
 
   if (!webinar) {
