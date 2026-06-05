@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server';
 
 const API_BASE = 'https://api.piano.io/api/v3';
 const TOKEN = process.env.PIANO_API_TOKEN;
-const AID = process.env.NEXT_PUBLIC_PIANO_AID;
+const AID = process.env.NEXT_PUBLIC_PIANO_AID || '7gZBRaNFpu';
 
 export async function GET(request) {
   if (!TOKEN || !AID) {
