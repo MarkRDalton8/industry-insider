@@ -22,14 +22,20 @@ export default function ProgressiveProfileModal() {
 
     const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
     const rawViews = parseInt(localStorage.getItem(key) || '0', 10);
-    const registeredAt = parseInt(localStorage.getItem('ppmodal_registered_at') || '0', 10);
-    const pageViews = registeredAt ? rawViews - registeredAt : rawViews;
-    const targetStage = !s1Done && pageViews >= 3 ? 1 : (s1Done && !s2Done && pageViews >= 6 ? 2 : 0);
-    if (!targetStage) return;
 
     const tryShow = () => {
       const user = window.tp?.pianoId?.getUser?.();
-      if (user?.uid) setTimeout(() => setStage(targetStage), 2000);
+      if (!user?.uid) return;
+
+      if (!localStorage.getItem('ppmodal_registered_at')) {
+        localStorage.setItem('ppmodal_registered_at', String(rawViews));
+        return;
+      }
+
+      const registeredAt = parseInt(localStorage.getItem('ppmodal_registered_at') || '0', 10);
+      const pageViews = rawViews - registeredAt;
+      const targetStage = !s1Done && pageViews >= 3 ? 1 : (s1Done && !s2Done && pageViews >= 6 ? 2 : 0);
+      if (targetStage) setTimeout(() => setStage(targetStage), 2000);
     };
 
     if (window.tp?.pianoId?.getUser) {
