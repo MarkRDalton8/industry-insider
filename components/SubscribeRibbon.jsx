@@ -25,7 +25,7 @@ export default function SubscribeRibbon() {
       if (PIANO.offerId) {
         window.tp.offer.show({ offerId: PIANO.offerId, displayMode: 'modal' });
       } else {
-        window.location.href = '/subscribe';
+        window.location.href = '/register';
       }
     }]);
   };

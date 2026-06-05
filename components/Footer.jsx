@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 style={{ color: '#ccc', fontSize: 11, textTransform: 'uppercase', letterSpacing: '1.5px', margin: '0 0 14px' }}>Account</h4>
-            {[['Register', '/subscribe'], ['My Account', '/account']].map(([label, href]) => (
+            {[['Register', '/register'], ['My Account', '/account']].map(([label, href]) => (
               <div key={href} style={{ marginBottom: 8 }}>
                 <a href={href} style={{ color: '#888', textDecoration: 'none', fontSize: 13 }}>{label}</a>
               </div>

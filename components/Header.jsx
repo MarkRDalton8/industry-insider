@@ -89,7 +89,7 @@ export default function Header() {
             ) : (
               <>
                 <button onClick={handleLogin} style={{ background: 'none', border: 'none', color: '#aaa', cursor: 'pointer', fontSize: 12, padding: 0 }}>Sign In</button>
-                <a href="/subscribe" style={{ color: COLORS.primary, textDecoration: 'none', fontWeight: 700 }}>{NAV.subscribeCta}</a>
+                <a href="/register" style={{ color: COLORS.primary, textDecoration: 'none', fontWeight: 700 }}>{NAV.subscribeCta}</a>
               </>
             )}
           </div>
@@ -158,7 +158,7 @@ export default function Header() {
           ))}
           {NAV.showSubscribeButton && (
             <a
-              href="/subscribe"
+              href="/register"
               style={{
                 marginLeft: 'auto',
                 background: COLORS.primary,
