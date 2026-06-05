@@ -48,6 +48,8 @@ img, svg { display: block; max-width: 100%; height: auto; }
   -webkit-font-smoothing: antialiased;
   text-align: center;
   background-color: [%% backgroundColor %%];
+  border: 1px solid #BFDBFE;
+  border-top: 4px solid #1D4ED8;
   border-radius: 12px;
   overflow: hidden;
 }
