@@ -10,6 +10,7 @@ const DEPT_OPTIONS = ['Executive', 'Operations', 'IT/Technology', 'Marketing', '
 
 export default function ProgressiveProfileModal() {
   const [stage, setStage] = useState(0);
+  const [showThankYou, setShowThankYou] = useState(null);
   const [fields, setFields] = useState({ jobLevel: '', industry: '', companySize: '', department: '' });
 
   useEffect(() => {
@@ -47,12 +48,18 @@ export default function ProgressiveProfileModal() {
       body: JSON.stringify({ uid, fields: customFields }),
     }).catch(() => {});
 
+    const thankYouStage = storageKey === 'ppmodal_stage1_done' ? 1 : 2;
+    setShowThankYou(thankYouStage);
+
     if (storageKey === 'ppmodal_stage1_done') {
       const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
       const pageViews = parseInt(localStorage.getItem(key) || '0', 10);
-      if (pageViews >= 6) {
-        setTimeout(() => setStage(2), 3000);
-      }
+      setTimeout(() => {
+        setShowThankYou(null);
+        if (pageViews >= 6) setTimeout(() => setStage(2), 1000);
+      }, 3000);
+    } else {
+      setTimeout(() => setShowThankYou(null), 4000);
     }
   };
 
@@ -80,7 +87,7 @@ export default function ProgressiveProfileModal() {
     setStage(0);
   };
 
-  if (!stage) return null;
+  if (!stage && !showThankYou) return null;
 
   const labelStyle = { display: 'block', fontSize: 12, fontWeight: 700, color: '#555', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.5px' };
   const inputStyle = { width: '100%', padding: '10px 12px', border: `1px solid ${COLORS.border}`, borderRadius: 4, fontSize: 14, fontFamily: 'inherit' };
@@ -101,80 +108,100 @@ export default function ProgressiveProfileModal() {
         }
       `}</style>
 
-      <div style={{ height: 4, background: `linear-gradient(90deg, ${COLORS.primary} 0%, #3B82F6 100%)` }} />
+      <div style={{ height: 4, background: showThankYou ? 'linear-gradient(90deg, #059669 0%, #10B981 100%)' : `linear-gradient(90deg, ${COLORS.primary} 0%, #3B82F6 100%)` }} />
 
       <div style={{ padding: '24px 24px 20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-          <div>
-            <h3 style={{ fontSize: 16, fontWeight: 700, color: COLORS.dark, lineHeight: 1.4, margin: '0 0 4px' }}>
-              {stage === 1 ? 'Tell us about yourself' : 'One more thing...'}
+        {showThankYou && (
+          <div style={{ textAlign: 'center', padding: '12px 0' }}>
+            <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+              <span style={{ color: '#059669', fontSize: 24, fontWeight: 700 }}>&#10003;</span>
+            </div>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: COLORS.dark, margin: '0 0 6px' }}>
+              {showThankYou === 1 ? 'Thanks!' : 'Profile complete!'}
             </h3>
-            <p style={{ fontSize: 12, color: '#6B7280', margin: 0 }}>
-              {stage === 1
-                ? 'Help us personalize your experience.'
-                : 'A few more details for better recommendations.'}
+            <p style={{ fontSize: 13, color: '#6B7280', margin: 0, lineHeight: 1.5 }}>
+              {showThankYou === 1
+                ? 'Your role has been saved. We\'ll tailor content to your level.'
+                : 'Your full profile is saved. Expect personalized research, webinars, and insights matched to your industry and role.'}
             </p>
           </div>
-          <button onClick={dismiss} style={{
-            background: 'none', border: 'none', color: '#9CA3AF', fontSize: 18,
-            cursor: 'pointer', padding: 0, lineHeight: 1, flexShrink: 0, marginLeft: 12,
-          }}>&times;</button>
-        </div>
-
-        {stage === 1 && (
-          <form onSubmit={handleStage1}>
-            <div style={{ marginBottom: 20 }}>
-              <label style={labelStyle}>Job Title</label>
-              <select value={fields.jobLevel} onChange={e => setFields(f => ({ ...f, jobLevel: e.target.value }))} style={inputStyle}>
-                <option value="">Select...</option>
-                {JOB_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
-              <button type="submit" style={{
-                background: fields.jobLevel ? COLORS.primary : '#E2E8F0',
-                color: fields.jobLevel ? 'white' : '#9CA3AF',
-                border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
-                cursor: fields.jobLevel ? 'pointer' : 'default', fontFamily: 'inherit',
-              }}>Continue</button>
-            </div>
-          </form>
         )}
 
-        {stage === 2 && (
-          <form onSubmit={handleStage2}>
-            <div style={{ marginBottom: 14 }}>
-              <label style={labelStyle}>Industry</label>
-              <select value={fields.industry} onChange={e => setFields(f => ({ ...f, industry: e.target.value }))} style={inputStyle}>
-                <option value="">Select...</option>
-                {INDUSTRY_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
+        {!showThankYou && (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+              <div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, color: COLORS.dark, lineHeight: 1.4, margin: '0 0 4px' }}>
+                  {stage === 1 ? 'Tell us about yourself' : 'One more thing...'}
+                </h3>
+                <p style={{ fontSize: 12, color: '#6B7280', margin: 0 }}>
+                  {stage === 1
+                    ? 'Help us personalize your experience.'
+                    : 'A few more details for better recommendations.'}
+                </p>
+              </div>
+              <button onClick={dismiss} style={{
+                background: 'none', border: 'none', color: '#9CA3AF', fontSize: 18,
+                cursor: 'pointer', padding: 0, lineHeight: 1, flexShrink: 0, marginLeft: 12,
+              }}>&times;</button>
             </div>
-            <div style={{ marginBottom: 14 }}>
-              <label style={labelStyle}>Company Size</label>
-              <select value={fields.companySize} onChange={e => setFields(f => ({ ...f, companySize: e.target.value }))} style={inputStyle}>
-                <option value="">Select...</option>
-                {SIZE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            </div>
-            <div style={{ marginBottom: 20 }}>
-              <label style={labelStyle}>Department</label>
-              <select value={fields.department} onChange={e => setFields(f => ({ ...f, department: e.target.value }))} style={inputStyle}>
-                <option value="">Select...</option>
-                {DEPT_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-              </select>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
-              <button type="submit" style={{
-                background: (fields.industry && fields.department) ? COLORS.primary : '#E2E8F0',
-                color: (fields.industry && fields.department) ? 'white' : '#9CA3AF',
-                border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
-                cursor: (fields.industry && fields.department) ? 'pointer' : 'default', fontFamily: 'inherit',
-              }}>Submit</button>
-            </div>
-          </form>
+
+            {stage === 1 && (
+              <form onSubmit={handleStage1}>
+                <div style={{ marginBottom: 20 }}>
+                  <label style={labelStyle}>Job Title</label>
+                  <select value={fields.jobLevel} onChange={e => setFields(f => ({ ...f, jobLevel: e.target.value }))} style={inputStyle}>
+                    <option value="">Select...</option>
+                    {JOB_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
+                  <button type="submit" style={{
+                    background: fields.jobLevel ? COLORS.primary : '#E2E8F0',
+                    color: fields.jobLevel ? 'white' : '#9CA3AF',
+                    border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
+                    cursor: fields.jobLevel ? 'pointer' : 'default', fontFamily: 'inherit',
+                  }}>Continue</button>
+                </div>
+              </form>
+            )}
+
+            {stage === 2 && (
+              <form onSubmit={handleStage2}>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>Industry</label>
+                  <select value={fields.industry} onChange={e => setFields(f => ({ ...f, industry: e.target.value }))} style={inputStyle}>
+                    <option value="">Select...</option>
+                    {INDUSTRY_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={labelStyle}>Company Size</label>
+                  <select value={fields.companySize} onChange={e => setFields(f => ({ ...f, companySize: e.target.value }))} style={inputStyle}>
+                    <option value="">Select...</option>
+                    {SIZE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div style={{ marginBottom: 20 }}>
+                  <label style={labelStyle}>Department</label>
+                  <select value={fields.department} onChange={e => setFields(f => ({ ...f, department: e.target.value }))} style={inputStyle}>
+                    <option value="">Select...</option>
+                    {DEPT_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                  </select>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
+                  <button type="submit" style={{
+                    background: (fields.industry && fields.department) ? COLORS.primary : '#E2E8F0',
+                    color: (fields.industry && fields.department) ? 'white' : '#9CA3AF',
+                    border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
+                    cursor: (fields.industry && fields.department) ? 'pointer' : 'default', fontFamily: 'inherit',
+                  }}>Submit</button>
+                </div>
+              </form>
+            )}
+          </>
         )}
       </div>
     </div>
