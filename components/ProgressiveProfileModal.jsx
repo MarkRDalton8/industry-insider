@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { COLORS, PIANO } from '../lib/site.config';
+import { COLORS, PIANO, SITE } from '../lib/site.config';
 
 const JOB_OPTIONS = ['C-Level', 'VP', 'Director', 'Manager', 'Individual Contributor', 'Consultant'];
 const INDUSTRY_OPTIONS = ['Manufacturing', 'Construction', 'Energy', 'Healthcare', 'Technology', 'Financial Services', 'Retail', 'Transportation', 'Government', 'Education', 'Media', 'Other'];
@@ -17,7 +17,8 @@ export default function ProgressiveProfileModal() {
     const s2Done = localStorage.getItem('ppmodal_stage2_done');
     if (s2Done) return;
 
-    const pageViews = parseInt(localStorage.getItem('pageviews') || '0', 10);
+    const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
+    const pageViews = parseInt(localStorage.getItem(key) || '0', 10);
     const targetStage = !s1Done && pageViews >= 3 ? 1 : (s1Done && !s2Done && pageViews >= 6 ? 2 : 0);
     if (!targetStage) return;
 
