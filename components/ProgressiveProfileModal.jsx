@@ -55,7 +55,7 @@ export default function ProgressiveProfileModal() {
     e.preventDefault();
     if (!fields.jobLevel) return;
     submitFields({
-      job_level: JSON.stringify([fields.jobLevel]),
+      'job-level': JSON.stringify([fields.jobLevel]),
     }, 'ppmodal_stage1_done');
   };
 
@@ -63,10 +63,10 @@ export default function ProgressiveProfileModal() {
     e.preventDefault();
     if (!fields.industry || !fields.department) return;
     const cf = {
-      INDUSTRY: JSON.stringify([fields.industry]),
-      DEPARTMENT: JSON.stringify([fields.department]),
+      industry: JSON.stringify([fields.industry]),
+      department: JSON.stringify([fields.department]),
     };
-    if (fields.companySize) cf['company_size'] = JSON.stringify([fields.companySize]);
+    if (fields.companySize) cf['company-size'] = JSON.stringify([fields.companySize]);
     submitFields(cf, 'ppmodal_stage2_done');
   };
 
