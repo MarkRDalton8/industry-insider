@@ -64,7 +64,7 @@ export default function WebinarContent({ slug }) {
         </div>
 
         <div>
-          {webinar.body.map((para, i) => (
+          {(hasAccess ? webinar.body : webinar.body.slice(0, 1)).map((para, i) => (
             <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
           ))}
 
