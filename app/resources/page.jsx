@@ -1,6 +1,6 @@
 import { SITE, COLORS } from '../../lib/site.config';
 import { WHITEPAPERS } from '../../lib/content';
-import { WhitepaperCard } from '../../components/WhitepaperCard';
+import { WhitepaperList } from '../../components/LoginAwareCards';
 import PianoInit from '../../components/PianoInit';
 
 export const metadata = {
@@ -26,9 +26,7 @@ export default function ResourcesPage() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {whitepapers.map((wp, i) => (
-          <WhitepaperCard key={wp.id} whitepaper={wp} featured={i === 0} />
-        ))}
+        <WhitepaperList whitepapers={whitepapers} firstFeatured />
       </div>
     </>
   );

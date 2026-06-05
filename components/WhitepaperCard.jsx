@@ -1,6 +1,6 @@
 import { COLORS } from '../lib/site.config';
 
-export function WhitepaperCard({ whitepaper, featured = false }) {
+export function WhitepaperCard({ whitepaper, featured = false, isLoggedIn = false }) {
   const topicColors = {
     technology: '#7C3AED',
     'market-analysis': '#B45309',
@@ -18,9 +18,11 @@ export function WhitepaperCard({ whitepaper, featured = false }) {
             <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: topicColor }}>
               Whitepaper
             </span>
-            <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: COLORS.primary, color: 'white', padding: '2px 7px', borderRadius: 2 }}>
-              Registration Required
-            </span>
+            {!isLoggedIn && (
+              <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: COLORS.primary, color: 'white', padding: '2px 7px', borderRadius: 2 }}>
+                Registration Required
+              </span>
+            )}
           </div>
           <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 24, fontWeight: 700, color: COLORS.dark, margin: '0 0 12px', lineHeight: 1.3 }}>
             {whitepaper.title}
@@ -41,6 +43,11 @@ export function WhitepaperCard({ whitepaper, featured = false }) {
           <span style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: topicColor }}>
             Whitepaper
           </span>
+          {!isLoggedIn && (
+            <span style={{ fontSize: 10, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: COLORS.primary, color: 'white', padding: '2px 7px', borderRadius: 2 }}>
+              Registration Required
+            </span>
+          )}
           <span style={{ fontSize: 10, fontWeight: 700, color: '#888' }}>{whitepaper.pages} pages</span>
         </div>
         <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 18, fontWeight: 700, color: COLORS.dark, margin: '0 0 8px', lineHeight: 1.3 }}>

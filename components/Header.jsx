@@ -162,7 +162,7 @@ export default function Header() {
               {label}
             </a>
           ))}
-          {NAV.showSubscribeButton && (
+          {NAV.showSubscribeButton && !isLoggedIn && (
             <a
               href="/register"
               style={{

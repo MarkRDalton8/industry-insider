@@ -1,8 +1,7 @@
 import { SITE, COLORS, SECTIONS } from '../lib/site.config';
 import { ARTICLES, WHITEPAPERS, WEBINARS } from '../lib/content';
 import { ArticleCard } from '../components/ArticleCard';
-import { WhitepaperCard } from '../components/WhitepaperCard';
-import { WebinarCard } from '../components/WebinarCard';
+import { WhitepaperList, WebinarList } from '../components/LoginAwareCards';
 import PianoInit from '../components/PianoInit';
 
 export const metadata = {
@@ -49,7 +48,7 @@ export default function Home() {
       <div style={{ marginBottom: 40 }}>
         <SectionHeader label="Research & Whitepapers" color={COLORS.primary} href="/resources" />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 18 }}>
-          {latestWhitepapers.map(wp => <WhitepaperCard key={wp.id} whitepaper={wp} />)}
+          <WhitepaperList whitepapers={latestWhitepapers} />
         </div>
       </div>
 
@@ -57,7 +56,7 @@ export default function Home() {
       <div style={{ marginBottom: 40 }}>
         <SectionHeader label="On-Demand Webinars" color={COLORS.primary} href="/webinars" />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 18 }}>
-          {latestWebinars.map(w => <WebinarCard key={w.id} webinar={w} />)}
+          <WebinarList webinars={latestWebinars} />
         </div>
       </div>
 

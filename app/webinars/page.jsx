@@ -1,6 +1,6 @@
 import { SITE, COLORS } from '../../lib/site.config';
 import { WEBINARS } from '../../lib/content';
-import { WebinarCard } from '../../components/WebinarCard';
+import { WebinarList } from '../../components/LoginAwareCards';
 import PianoInit from '../../components/PianoInit';
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function WebinarsPage() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {webinars.map(w => <WebinarCard key={w.id} webinar={w} />)}
+        <WebinarList webinars={webinars} />
       </div>
     </>
   );
