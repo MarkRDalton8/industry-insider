@@ -59,9 +59,9 @@ export default function WhitepaperContent({ slug }) {
           </div>
         </div>
 
-        {wp.body.slice(0, 1).map((para, i) => (
-          <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
-        ))}
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {wp.body[0]}
+        </p>
 
         {!hasAccess && <div className="piano-resource-gate" />}
 

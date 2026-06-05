@@ -63,9 +63,9 @@ export default function WebinarContent({ slug }) {
           <div style={{ fontSize: 13, color: '#666' }}>{webinar.speakerTitle}, {webinar.speakerCompany}</div>
         </div>
 
-        {webinar.body.slice(0, 1).map((para, i) => (
-          <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
-        ))}
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+          {webinar.body[0]}
+        </p>
 
         {!hasAccess && <div className="piano-webinar-gate" />}
 
