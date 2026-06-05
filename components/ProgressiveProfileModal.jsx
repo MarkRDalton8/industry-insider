@@ -22,11 +22,17 @@ export default function ProgressiveProfileModal() {
     const targetStage = !s1Done && pageViews >= 3 ? 1 : (s1Done && !s2Done && pageViews >= 6 ? 2 : 0);
     if (!targetStage) return;
 
-    window.tp = window.tp || [];
-    window.tp.push(['init', function () {
+    const tryShow = () => {
       const user = window.tp?.pianoId?.getUser?.();
       if (user?.uid) setTimeout(() => setStage(targetStage), 2000);
-    }]);
+    };
+
+    if (window.tp?.pianoId?.getUser) {
+      tryShow();
+    } else {
+      window.tp = window.tp || [];
+      window.tp.push(['init', tryShow]);
+    }
   }, []);
 
   const submitFields = (customFields, storageKey) => {
