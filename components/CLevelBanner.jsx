@@ -1,36 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PIANO } from '../lib/site.config';
 
 export default function CLevelBanner() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     const s2Done = localStorage.getItem('ppmodal_stage2_done');
-    if (!s2Done) return;
-
-    const tryCheck = () => {
-      const user = window.tp?.pianoId?.getUser?.();
-      if (!user?.uid) return;
-
-      fetch(`/api/piano-profile?uid=${user.uid}`)
-        .then(r => r.json())
-        .then(data => {
-          const jobLevel = data?.['job-level'];
-          const parsed = (() => { try { return JSON.parse(jobLevel); } catch { return jobLevel; } })();
-          const value = Array.isArray(parsed) ? parsed[0] : parsed;
-          if (value === 'C-Level') setShow(true);
-        })
-        .catch(() => {});
-    };
-
-    if (window.tp?.pianoId?.getUser) {
-      tryCheck();
-    } else {
-      window.tp = window.tp || [];
-      window.tp.push(['init', tryCheck]);
-    }
+    const jobLevel = localStorage.getItem('ppmodal_job_level');
+    if (s2Done && jobLevel === 'C-Level') setShow(true);
   }, []);
 
   if (!show) return null;

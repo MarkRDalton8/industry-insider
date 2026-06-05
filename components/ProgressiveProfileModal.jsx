@@ -66,6 +66,7 @@ export default function ProgressiveProfileModal() {
   const handleStage1 = (e) => {
     e.preventDefault();
     if (!fields.jobLevel) return;
+    localStorage.setItem('ppmodal_job_level', fields.jobLevel);
     submitFields({
       'job-level': JSON.stringify([fields.jobLevel]),
     }, 'ppmodal_stage1_done');
