@@ -36,19 +36,16 @@ export default function ProgressiveProfileModal() {
   }, []);
 
   const submitFields = (customFields, storageKey) => {
+    const user = window.tp?.pianoId?.getUser?.();
+    const uid = user?.uid;
     localStorage.setItem(storageKey, '1');
     setStage(0);
-    if (!PIANO.aid) return;
-    window.tp = window.tp || [];
-    window.tp.push(['init', function () {
-      const user = window.tp?.pianoId?.getUser?.();
-      if (!user?.uid) return;
-      fetch('/api/piano-profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ uid: user.uid, fields: customFields }),
-      }).catch(() => {});
-    }]);
+    if (!uid) return;
+    fetch('/api/piano-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uid, fields: customFields }),
+    }).catch(() => {});
   };
 
   const handleStage1 = (e) => {
