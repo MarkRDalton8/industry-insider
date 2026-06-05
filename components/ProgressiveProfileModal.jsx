@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { COLORS, PIANO, SITE } from '../lib/site.config';
 
 const JOB_OPTIONS = ['C-Level', 'VP', 'Director', 'Manager', 'Individual Contributor', 'Consultant'];
@@ -12,6 +13,7 @@ export default function ProgressiveProfileModal() {
   const [stage, setStage] = useState(0);
   const [showThankYou, setShowThankYou] = useState(null);
   const [fields, setFields] = useState({ jobLevel: '', industry: '', companySize: '', department: '' });
+  const pathname = usePathname();
 
   useEffect(() => {
     const s1Done = localStorage.getItem('ppmodal_stage1_done');
@@ -34,7 +36,7 @@ export default function ProgressiveProfileModal() {
       window.tp = window.tp || [];
       window.tp.push(['init', tryShow]);
     }
-  }, []);
+  }, [pathname]);
 
   const submitFields = (customFields, storageKey) => {
     const user = window.tp?.pianoId?.getUser?.();
@@ -50,17 +52,7 @@ export default function ProgressiveProfileModal() {
 
     const thankYouStage = storageKey === 'ppmodal_stage1_done' ? 1 : 2;
     setShowThankYou(thankYouStage);
-
-    if (storageKey === 'ppmodal_stage1_done') {
-      const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
-      const pageViews = parseInt(localStorage.getItem(key) || '0', 10);
-      setTimeout(() => {
-        setShowThankYou(null);
-        if (pageViews >= 6) setTimeout(() => setStage(2), 1000);
-      }, 3000);
-    } else {
-      setTimeout(() => setShowThankYou(null), 4000);
-    }
+    setTimeout(() => setShowThankYou(null), storageKey === 'ppmodal_stage1_done' ? 3000 : 4000);
   };
 
   const handleStage1 = (e) => {
