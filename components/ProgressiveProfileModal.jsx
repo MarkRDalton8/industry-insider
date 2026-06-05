@@ -10,7 +10,7 @@ const DEPT_OPTIONS = ['Executive', 'Operations', 'IT/Technology', 'Marketing', '
 
 export default function ProgressiveProfileModal() {
   const [stage, setStage] = useState(0);
-  const [fields, setFields] = useState({ company: '', jobLevel: '', industry: '', companySize: '', department: '' });
+  const [fields, setFields] = useState({ jobLevel: '', industry: '', companySize: '', department: '' });
 
   useEffect(() => {
     const s1Done = localStorage.getItem('ppmodal_stage1_done');
@@ -46,9 +46,8 @@ export default function ProgressiveProfileModal() {
 
   const handleStage1 = (e) => {
     e.preventDefault();
-    if (!fields.company || !fields.jobLevel) return;
+    if (!fields.jobLevel) return;
     submitFields({
-      'Company Name': fields.company.trim(),
       job_level: JSON.stringify([fields.jobLevel]),
     }, 'ppmodal_stage1_done');
   };
@@ -88,10 +87,6 @@ export default function ProgressiveProfileModal() {
               Help us personalize your Industry Insider experience with content relevant to your role.
             </p>
             <form onSubmit={handleStage1}>
-              <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>Company</label>
-                <input type="text" value={fields.company} onChange={e => setFields(f => ({ ...f, company: e.target.value }))} placeholder="Your company name" style={inputStyle} />
-              </div>
               <div style={{ marginBottom: 24 }}>
                 <label style={labelStyle}>Job Title</label>
                 <select value={fields.jobLevel} onChange={e => setFields(f => ({ ...f, jobLevel: e.target.value }))} style={inputStyle}>
