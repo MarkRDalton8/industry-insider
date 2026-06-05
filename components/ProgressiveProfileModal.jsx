@@ -48,7 +48,7 @@ export default function ProgressiveProfileModal() {
     e.preventDefault();
     if (!fields.company || !fields.jobLevel) return;
     submitFields({
-      COMPANY: fields.company.trim(),
+      'Company Name': fields.company.trim(),
       job_level: JSON.stringify([fields.jobLevel]),
     }, 'ppmodal_stage1_done');
   };
