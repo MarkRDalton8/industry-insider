@@ -78,73 +78,98 @@ export default function ProgressiveProfileModal() {
   if (!stage) return null;
 
   const labelStyle = { display: 'block', fontSize: 12, fontWeight: 700, color: '#555', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.5px' };
-  const inputStyle = { width: '100%', padding: '10px 12px', border: `1px solid ${COLORS.border}`, borderRadius: 4, fontSize: 14 };
+  const inputStyle = { width: '100%', padding: '10px 12px', border: `1px solid ${COLORS.border}`, borderRadius: 4, fontSize: 14, fontFamily: 'inherit' };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ background: 'white', padding: 40, borderRadius: 8, maxWidth: 440, width: '90%', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-        <div style={{ width: 40, height: 4, background: COLORS.primary, borderRadius: 2, marginBottom: 20 }} />
+    <div style={{
+      position: 'fixed', bottom: 24, right: 24, width: 380, zIndex: 2000,
+      background: 'white', borderRadius: 14,
+      boxShadow: '0 8px 40px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08)',
+      border: `1px solid ${COLORS.border}`, overflow: 'hidden',
+      animation: 'ppSlideUp 0.3s ease',
+      fontFamily: 'var(--font-ui)',
+    }}>
+      <style>{`
+        @keyframes ppSlideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
+
+      <div style={{ height: 4, background: `linear-gradient(90deg, ${COLORS.primary} 0%, #3B82F6 100%)` }} />
+
+      <div style={{ padding: '24px 24px 20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+          <div>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: COLORS.dark, lineHeight: 1.4, margin: '0 0 4px' }}>
+              {stage === 1 ? 'Tell us about yourself' : 'One more thing...'}
+            </h3>
+            <p style={{ fontSize: 12, color: '#6B7280', margin: 0 }}>
+              {stage === 1
+                ? 'Help us personalize your experience.'
+                : 'A few more details for better recommendations.'}
+            </p>
+          </div>
+          <button onClick={dismiss} style={{
+            background: 'none', border: 'none', color: '#9CA3AF', fontSize: 18,
+            cursor: 'pointer', padding: 0, lineHeight: 1, flexShrink: 0, marginLeft: 12,
+          }}>&times;</button>
+        </div>
 
         {stage === 1 && (
-          <>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, fontWeight: 700, color: COLORS.dark, margin: '0 0 8px' }}>
-              Tell us about yourself
-            </h2>
-            <p style={{ fontSize: 14, color: '#666', margin: '0 0 24px', lineHeight: 1.6 }}>
-              Help us personalize your Industry Insider experience with content relevant to your role.
-            </p>
-            <form onSubmit={handleStage1}>
-              <div style={{ marginBottom: 24 }}>
-                <label style={labelStyle}>Job Title</label>
-                <select value={fields.jobLevel} onChange={e => setFields(f => ({ ...f, jobLevel: e.target.value }))} style={inputStyle}>
-                  <option value="">Select...</option>
-                  {JOB_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div style={{ display: 'flex', gap: 12 }}>
-                <button type="submit" style={{ flex: 1, background: COLORS.primary, color: 'white', border: 'none', padding: '12px 0', fontSize: 14, fontWeight: 700, cursor: 'pointer', borderRadius: 4 }}>Continue</button>
-                <button type="button" onClick={dismiss} style={{ flex: 1, background: '#f0f0f0', color: '#555', border: 'none', padding: '12px 0', fontSize: 14, cursor: 'pointer', borderRadius: 4 }}>Skip</button>
-              </div>
-            </form>
-          </>
+          <form onSubmit={handleStage1}>
+            <div style={{ marginBottom: 20 }}>
+              <label style={labelStyle}>Job Title</label>
+              <select value={fields.jobLevel} onChange={e => setFields(f => ({ ...f, jobLevel: e.target.value }))} style={inputStyle}>
+                <option value="">Select...</option>
+                {JOB_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
+              <button type="submit" style={{
+                background: fields.jobLevel ? COLORS.primary : '#E2E8F0',
+                color: fields.jobLevel ? 'white' : '#9CA3AF',
+                border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
+                cursor: fields.jobLevel ? 'pointer' : 'default', fontFamily: 'inherit',
+              }}>Continue</button>
+            </div>
+          </form>
         )}
 
         {stage === 2 && (
-          <>
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 22, fontWeight: 700, color: COLORS.dark, margin: '0 0 8px' }}>
-              One more thing...
-            </h2>
-            <p style={{ fontSize: 14, color: '#666', margin: '0 0 24px', lineHeight: 1.6 }}>
-              A few more details help us surface the research and insights most relevant to you.
-            </p>
-            <form onSubmit={handleStage2}>
-              <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>Industry</label>
-                <select value={fields.industry} onChange={e => setFields(f => ({ ...f, industry: e.target.value }))} style={inputStyle}>
-                  <option value="">Select...</option>
-                  {INDUSTRY_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div style={{ marginBottom: 16 }}>
-                <label style={labelStyle}>Company Size</label>
-                <select value={fields.companySize} onChange={e => setFields(f => ({ ...f, companySize: e.target.value }))} style={inputStyle}>
-                  <option value="">Select...</option>
-                  {SIZE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div style={{ marginBottom: 24 }}>
-                <label style={labelStyle}>Department</label>
-                <select value={fields.department} onChange={e => setFields(f => ({ ...f, department: e.target.value }))} style={inputStyle}>
-                  <option value="">Select...</option>
-                  {DEPT_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div style={{ display: 'flex', gap: 12 }}>
-                <button type="submit" style={{ flex: 1, background: COLORS.primary, color: 'white', border: 'none', padding: '12px 0', fontSize: 14, fontWeight: 700, cursor: 'pointer', borderRadius: 4 }}>Submit</button>
-                <button type="button" onClick={dismiss} style={{ flex: 1, background: '#f0f0f0', color: '#555', border: 'none', padding: '12px 0', fontSize: 14, cursor: 'pointer', borderRadius: 4 }}>Skip</button>
-              </div>
-            </form>
-          </>
+          <form onSubmit={handleStage2}>
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>Industry</label>
+              <select value={fields.industry} onChange={e => setFields(f => ({ ...f, industry: e.target.value }))} style={inputStyle}>
+                <option value="">Select...</option>
+                {INDUSTRY_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div style={{ marginBottom: 14 }}>
+              <label style={labelStyle}>Company Size</label>
+              <select value={fields.companySize} onChange={e => setFields(f => ({ ...f, companySize: e.target.value }))} style={inputStyle}>
+                <option value="">Select...</option>
+                {SIZE_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div style={{ marginBottom: 20 }}>
+              <label style={labelStyle}>Department</label>
+              <select value={fields.department} onChange={e => setFields(f => ({ ...f, department: e.target.value }))} style={inputStyle}>
+                <option value="">Select...</option>
+                {DEPT_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+              </select>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <button type="button" onClick={dismiss} style={{ background: 'none', border: 'none', color: '#9CA3AF', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: 0 }}>Skip</button>
+              <button type="submit" style={{
+                background: (fields.industry && fields.department) ? COLORS.primary : '#E2E8F0',
+                color: (fields.industry && fields.department) ? 'white' : '#9CA3AF',
+                border: 'none', padding: '10px 24px', borderRadius: 6, fontSize: 13, fontWeight: 700,
+                cursor: (fields.industry && fields.department) ? 'pointer' : 'default', fontFamily: 'inherit',
+              }}>Submit</button>
+            </div>
+          </form>
         )}
       </div>
     </div>
