@@ -59,14 +59,13 @@ export default function WhitepaperContent({ slug }) {
           </div>
         </div>
 
-        <div>
-          {wp.body.map((para, i) => (
-            <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
-          ))}
+        {!hasAccess && <div className="piano-resource-gate" />}
 
-          {!hasAccess && <div className="piano-resource-gate" />}
-
-          {hasAccess && (
+        {hasAccess && (
+          <>
+            {wp.body.map((para, i) => (
+              <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
+            ))}
             <div style={{ background: '#F0F9FF', border: `2px solid ${COLORS.primary}`, borderRadius: 8, padding: '32px 40px', textAlign: 'center', marginTop: 32 }}>
               <div style={{ fontSize: 40, marginBottom: 12 }}>&#128196;</div>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: 20, color: COLORS.dark, margin: '0 0 8px' }}>Ready to Download</h3>
@@ -78,8 +77,8 @@ export default function WhitepaperContent({ slug }) {
                 Download PDF ({wp.pages} pages)
               </a>
             </div>
-          )}
-        </div>
+          </>
+        )}
 
         <div style={{ borderTop: `1px solid ${COLORS.border}`, marginTop: 48, paddingTop: 24 }}>
           <a href="/resources" style={{ color: COLORS.primary, textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>&larr; All Resources</a>

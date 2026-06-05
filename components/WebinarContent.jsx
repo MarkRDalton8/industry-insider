@@ -63,14 +63,13 @@ export default function WebinarContent({ slug }) {
           <div style={{ fontSize: 13, color: '#666' }}>{webinar.speakerTitle}, {webinar.speakerCompany}</div>
         </div>
 
-        <div>
-          {(hasAccess ? webinar.body : webinar.body.slice(0, 1)).map((para, i) => (
-            <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
-          ))}
+        {!hasAccess && <div className="piano-webinar-gate" />}
 
-          {!hasAccess && <div className="piano-webinar-gate" />}
-
-          {hasAccess && (
+        {hasAccess && (
+          <>
+            {webinar.body.map((para, i) => (
+              <p key={i} style={{ fontFamily: 'var(--font-body)', fontSize: 17, lineHeight: 1.85, color: '#222', marginBottom: 24 }}>{para}</p>
+            ))}
             <div style={{ background: '#0F172A', borderRadius: 8, padding: '60px 40px', textAlign: 'center', marginTop: 32 }}>
               <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
                 <div style={{ width: 0, height: 0, borderTop: '18px solid transparent', borderBottom: '18px solid transparent', borderLeft: '30px solid white', marginLeft: 6 }} />
@@ -79,8 +78,8 @@ export default function WebinarContent({ slug }) {
               <p style={{ fontSize: 14, color: '#94A3B8', margin: '0 0 20px' }}>Your free access is confirmed. Click play to start watching.</p>
               <div style={{ color: '#64748B', fontSize: 13 }}>{webinar.duration} &middot; On-Demand</div>
             </div>
-          )}
-        </div>
+          </>
+        )}
 
         <div style={{ borderTop: `1px solid ${COLORS.border}`, marginTop: 48, paddingTop: 24 }}>
           <a href="/webinars" style={{ color: COLORS.primary, textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>&larr; All Webinars</a>
