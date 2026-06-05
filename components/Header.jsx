@@ -32,7 +32,8 @@ export default function Header() {
       window.tp.pianoId.hide();
       applyUser(data.user);
       const pvKey = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
-      localStorage.setItem(pvKey, '0');
+      const currentViews = parseInt(localStorage.getItem(pvKey) || '0', 10);
+      localStorage.setItem('ppmodal_registered_at', String(currentViews));
       window.location.href = '/';
     }]);
 
@@ -60,10 +61,13 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    if (window.tp?.pianoId) window.tp.pianoId.logout();
-    setIsLoggedIn(false);
-    setUserName('');
-    window.location.href = '/';
+    if (window.tp?.pianoId) {
+      window.tp.pianoId.logout(function () {
+        setIsLoggedIn(false);
+        setUserName('');
+        window.location.href = '/';
+      });
+    }
   };
 
   const isActive = (href) =>

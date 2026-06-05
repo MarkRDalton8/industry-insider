@@ -21,7 +21,9 @@ export default function ProgressiveProfileModal() {
     if (s2Done) return;
 
     const key = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
-    const pageViews = parseInt(localStorage.getItem(key) || '0', 10);
+    const rawViews = parseInt(localStorage.getItem(key) || '0', 10);
+    const registeredAt = parseInt(localStorage.getItem('ppmodal_registered_at') || '0', 10);
+    const pageViews = registeredAt ? rawViews - registeredAt : rawViews;
     const targetStage = !s1Done && pageViews >= 3 ? 1 : (s1Done && !s2Done && pageViews >= 6 ? 2 : 0);
     if (!targetStage) return;
 
