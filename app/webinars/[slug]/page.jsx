@@ -10,6 +10,8 @@ export function generateMetadata({ params }) {
   const webinar = WEBINARS.find(w => w.slug === params.slug);
   if (!webinar) return { title: `Webinar Not Found — ${SITE.name}` };
 
+  const canonicalUrl = `${SITE.domain}/webinars/${webinar.slug}`;
+
   return {
     title: `${webinar.title} — ${SITE.name}`,
     description: webinar.description,
@@ -17,7 +19,13 @@ export function generateMetadata({ params }) {
       title: webinar.title,
       description: webinar.description,
       type: 'article',
-      url: `${SITE.domain}/webinars/${webinar.slug}`,
+      url: canonicalUrl,
+      section: 'Webinars',
+      tags: webinar.tags || [],
+    },
+    other: {
+      'cXenseParse:pageclass': 'webinar',
+      'cXenseParse:recs:articleid': `web-${webinar.id}`,
     },
   };
 }
