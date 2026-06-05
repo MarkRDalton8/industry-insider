@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { COLORS, PIANO } from '../lib/site.config';
 import { WEBINARS } from '../lib/content';
 import PianoInit from './PianoInit';
-import CLevelBanner from './CLevelBanner';
 
 export default function WebinarContent({ slug }) {
   const webinar = WEBINARS.find(w => w.slug === slug);
@@ -85,8 +84,6 @@ export default function WebinarContent({ slug }) {
             </div>
           </>
         )}
-
-        <CLevelBanner />
 
         <div style={{ borderTop: `1px solid ${COLORS.border}`, marginTop: 48, paddingTop: 24 }}>
           <a href="/webinars" style={{ color: COLORS.primary, textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>&larr; All Webinars</a>
