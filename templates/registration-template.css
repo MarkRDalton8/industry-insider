@@ -1,0 +1,278 @@
+/* Industry Insider — Registration Template */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.unbutton {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  outline: 0;
+  border: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3 { margin: 0; font-weight: normal; }
+p { margin: 0; }
+img, svg { display: block; max-width: 100%; height: auto; }
+* { box-sizing: border-box; }
+
+/* Container */
+
+.ii-boilerplate {
+  width: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #334155;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  background-color: [%% backgroundColor %%];
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header */
+
+.ii-boilerplate__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.ii-boilerplate__header-controls {
+  padding-left: 20px;
+  height: 18px;
+  display: flex;
+  width: 100%;
+}
+
+.ii-boilerplate__account {
+  max-width: 250px;
+  display: inline-block;
+  margin-left: auto;
+  height: 100%;
+}
+
+.ii-boilerplate__close {
+  flex-shrink: 0;
+  width: 56px;
+  height: 100%;
+  margin-left: auto;
+  border-left: 1px solid #E2E8F0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ii-boilerplate__close:hover {
+  background: #F8FAFC;
+}
+
+.ii-boilerplate__account + .ii-boilerplate__close {
+  margin-left: 0;
+}
+
+/* Body */
+
+.ii-offer__body {
+  padding: 40px 36px 32px;
+}
+
+.ii-offer__icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E3A8A 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.ii-offer__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: [%% accentColor %%];
+  margin-bottom: 10px;
+}
+
+.ii-offer__headline {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.ii-offer__description {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Benefits */
+
+.ii-offer__benefits {
+  text-align: left;
+  max-width: 360px;
+  margin: 0 auto 32px;
+}
+
+.ii-offer__benefit {
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 14px;
+  color: #334155;
+  gap: 12px;
+}
+
+.ii-offer__benefit:last-child {
+  border-bottom: none;
+}
+
+.ii-offer__check {
+  color: #1D4ED8;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+/* Terms */
+
+.ii-offer__terms {
+  margin-bottom: 24px;
+}
+
+.ii-offer__term {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  margin-bottom: 12px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.ii-offer__term:last-child {
+  margin-bottom: 0;
+}
+
+.ii-offer__term-info {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.ii-offer__term-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 2px;
+}
+
+.ii-offer__term-desc {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+/* Button */
+
+.ii-offer__btn {
+  flex-shrink: 0;
+  padding: 12px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: [%% buttonColor %%];
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.ii-offer__btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.ii-offer__btn-price {
+  font-weight: 800;
+}
+
+.ii-offer__btn-period {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.ii-offer__btn-free {
+  font-weight: 700;
+}
+
+/* Footer */
+
+.ii-offer__footer {
+  font-size: 12px;
+  color: #94A3B8;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .ii-offer__body {
+    padding: 28px 20px 24px;
+  }
+
+  .ii-offer__headline {
+    font-size: 22px;
+  }
+
+  .ii-offer__term {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .ii-offer__term-info {
+    margin-right: 0;
+  }
+
+  .ii-offer__btn {
+    width: 100%;
+  }
+}

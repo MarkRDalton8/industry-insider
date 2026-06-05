@@ -1,0 +1,68 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<config close-button-type="boilerplate"></config>
+
+<div class="ii-boilerplate ii-offer">
+    <div class="ii-boilerplate__header">
+        <div class="ii-boilerplate__header-controls">
+            <language-selector class="ii-boilerplate__language-selector"></language-selector>
+        </div>
+        <div class="ii-boilerplate__account">
+            <boilerplate-login-dropdown></boilerplate-login-dropdown>
+        </div>
+        <button ng-if="isShowBoilerplateCloseButton()" class="ii-boilerplate__close unbutton" type="button" ng-click="close()" external-event="offer-close-modal">
+            <span class="visually-hidden">Close</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.586 6L.293 1.707 1.707.293 6 4.586 10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6z" fill="#334155"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="ii-offer__body">
+        <div class="ii-offer__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <line x1="19" y1="8" x2="19" y2="14"/>
+                <line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+        </div>
+
+        <div class="ii-offer__eyebrow">[%% eyebrow %%]</div>
+        <h1 class="ii-offer__headline">[%% headline %%]</h1>
+        <p class="ii-offer__description">[%% description %%]</p>
+
+        <div class="ii-offer__benefits">
+            <div class="ii-offer__benefit" ng-if="'[%% benefit1 %%]' !== ''"><span class="ii-offer__check">&#10003;</span><span>[%% benefit1 %%]</span></div>
+            <div class="ii-offer__benefit" ng-if="'[%% benefit2 %%]' !== ''"><span class="ii-offer__check">&#10003;</span><span>[%% benefit2 %%]</span></div>
+            <div class="ii-offer__benefit" ng-if="'[%% benefit3 %%]' !== ''"><span class="ii-offer__check">&#10003;</span><span>[%% benefit3 %%]</span></div>
+            <div class="ii-offer__benefit" ng-if="'[%% benefit4 %%]' !== ''"><span class="ii-offer__check">&#10003;</span><span>[%% benefit4 %%]</span></div>
+            <div class="ii-offer__benefit" ng-if="'[%% benefit5 %%]' !== ''"><span class="ii-offer__check">&#10003;</span><span>[%% benefit5 %%]</span></div>
+        </div>
+
+        <ul class="ii-offer__terms list">
+            <li class="ii-offer__term" ng-repeat="term in terms track by $index">
+                <div class="ii-offer__term-info">
+                    <h2 class="ii-offer__term-name">{{ term.name }}</h2>
+                    <p class="ii-offer__term-desc" ng-if="term.description">{{ term.description }}</p>
+                </div>
+                <button class="ii-offer__btn unbutton"
+                        type="button"
+                        ng-click="startCheckout(term.termId)"
+                        external-event="offer-subscribe-{{ $index }}">
+                    <span ng-show="isPayableTerm(term)">
+                        <span class="ii-offer__btn-price">{{ term.billingPlanTable[0].price }}</span>
+                        <span class="ii-offer__btn-period">/ {{ term.billingPlanTable[0].billingPeriod }}</span>
+                    </span>
+                    <span ng-hide="isPayableTerm(term)" class="ii-offer__btn-free">
+                        Register Free
+                    </span>
+                </button>
+            </li>
+        </ul>
+
+        <p class="ii-offer__footer">[%% footerText %%]</p>
+    </div>
+</div>
