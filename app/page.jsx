@@ -11,9 +11,9 @@ export const metadata = {
 };
 
 export default function Home() {
-  const latestArticles = [...ARTICLES].sort((a, b) => b.id - a.id).slice(0, 6);
-  const featuredArticle = latestArticles[0];
-  const sideArticles = latestArticles.slice(1, 4);
+  const latestArticles = [...ARTICLES].sort((a, b) => b.id - a.id).slice(0, 8);
+  const heroArticles = latestArticles.slice(0, 3);
+  const sideArticles = latestArticles.slice(3, 6);
   const latestWhitepapers = [...WHITEPAPERS].sort((a, b) => b.id - a.id).slice(0, 3);
   const latestWebinars = [...WEBINARS].sort((a, b) => b.id - a.id).slice(0, 2);
 
@@ -28,11 +28,14 @@ export default function Home() {
     <>
       <PianoInit section="home" />
 
-      {/* Hero: featured article + sidebar */}
+      {/* Hero: latest articles + trending sidebar */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 28, marginBottom: 40 }}>
         <div>
           <SectionHeader label="Latest" color={COLORS.primary} />
-          {featuredArticle && <ArticleCard article={featuredArticle} featured />}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <ArticleCard article={heroArticles[0]} featured />
+            {heroArticles.slice(1).map(a => <ArticleCard key={a.id} article={a} />)}
+          </div>
         </div>
         <div>
           <SectionHeader label="Trending" color={COLORS.dark} />
