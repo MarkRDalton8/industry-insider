@@ -9,8 +9,19 @@ export default function SubscribeRibbon() {
 
   useEffect(() => {
     if (sessionStorage.getItem('ribbon_dismissed')) return;
-    const timer = setTimeout(() => setVisible(true), 3000);
-    return () => clearTimeout(timer);
+
+    const tryCheck = () => {
+      const user = window.tp?.pianoId?.getUser?.();
+      if (user?.uid) { setDismissed(true); return; }
+      setTimeout(() => setVisible(true), 3000);
+    };
+
+    if (window.tp?.pianoId?.getUser) {
+      tryCheck();
+    } else {
+      window.tp = window.tp || [];
+      window.tp.push(['init', tryCheck]);
+    }
   }, []);
 
   const handleDismiss = () => {
