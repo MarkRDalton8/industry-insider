@@ -1,25 +1,17 @@
-import { SITE, COLORS, NAV } from '../../lib/site.config';
+import { SITE, COLORS } from '../../lib/site.config';
 import PianoInit from '../../components/PianoInit';
 
 export const metadata = {
-  title: `Subscribe — ${SITE.name}`,
+  title: `Register — ${SITE.name}`,
 };
 
-export default function SubscribePage() {
+export default function RegisterPage() {
   return (
     <>
-      <PianoInit section="subscribe" />
+      <PianoInit section="register" />
 
-      <div style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center', padding: '60px 0' }}>
-        <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 42, fontWeight: 700, color: COLORS.dark, margin: '0 0 16px' }}>
-          {NAV.subscribeCta}
-        </h1>
-        <p style={{ fontSize: 18, color: '#555', lineHeight: 1.7, margin: '0 0 36px' }}>
-          {NAV.subscribeCopy}
-        </p>
-
-        {/* Piano Composer will inject the registration/offer experience here */}
-        <div className="piano-subscribe" style={{ minHeight: 200 }} />
+      <div style={{ maxWidth: 600, margin: '0 auto', padding: '40px 0' }}>
+        <div className="piano-subscribe" />
       </div>
     </>
   );
