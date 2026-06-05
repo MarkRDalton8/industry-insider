@@ -1,0 +1,65 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<config close-button-type="boilerplate"></config>
+
+<div class="mhn-boilerplate mhn-offer">
+    <div class="mhn-boilerplate__header">
+        <div class="mhn-boilerplate__header-controls">
+            <language-selector class="mhn-boilerplate__language-selector"></language-selector>
+        </div>
+        <div class="mhn-boilerplate__account">
+            <boilerplate-login-dropdown></boilerplate-login-dropdown>
+        </div>
+        <button ng-if="isShowBoilerplateCloseButton()" class="mhn-boilerplate__close unbutton" type="button" ng-click="close()" external-event="offer-close-modal">
+            <span class="visually-hidden">Close</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.586 6L.293 1.707 1.707.293 6 4.586 10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6z" fill="#111827"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="mhn-offer__body">
+        <div class="mhn-offer__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18M4 12q0-4 4-5 4-1 4 5 0-6 4-5 4 1 4 5"/>
+            </svg>
+        </div>
+
+        <div class="mhn-offer__eyebrow">[%% eyebrow %%]</div>
+        <h1 class="mhn-offer__headline">[%% headline %%]</h1>
+        <p class="mhn-offer__description">[%% description %%]</p>
+
+        <div class="mhn-offer__benefits">
+            <div class="mhn-offer__benefit" ng-if="'[%% benefit1 %%]' !== ''"><span class="mhn-offer__check">✓</span><span>[%% benefit1 %%]</span></div>
+            <div class="mhn-offer__benefit" ng-if="'[%% benefit2 %%]' !== ''"><span class="mhn-offer__check">✓</span><span>[%% benefit2 %%]</span></div>
+            <div class="mhn-offer__benefit" ng-if="'[%% benefit3 %%]' !== ''"><span class="mhn-offer__check">✓</span><span>[%% benefit3 %%]</span></div>
+            <div class="mhn-offer__benefit" ng-if="'[%% benefit4 %%]' !== ''"><span class="mhn-offer__check">✓</span><span>[%% benefit4 %%]</span></div>
+            <div class="mhn-offer__benefit" ng-if="'[%% benefit5 %%]' !== ''"><span class="mhn-offer__check">✓</span><span>[%% benefit5 %%]</span></div>
+        </div>
+
+        <ul class="mhn-offer__terms list">
+            <li class="mhn-offer__term" ng-repeat="term in terms track by $index">
+                <div class="mhn-offer__term-info">
+                    <h2 class="mhn-offer__term-name">{{ term.name }}</h2>
+                    <p class="mhn-offer__term-desc" ng-if="term.description">{{ term.description }}</p>
+                </div>
+                <button class="mhn-offer__btn unbutton"
+                        type="button"
+                        ng-click="startCheckout(term.termId)"
+                        external-event="offer-subscribe-{{ $index }}">
+                    <span ng-show="isPayableTerm(term)">
+                        <span class="mhn-offer__btn-price">{{ term.billingPlanTable[0].price }}</span>
+                        <span class="mhn-offer__btn-period">/ {{ term.billingPlanTable[0].billingPeriod }}</span>
+                    </span>
+                    <span ng-hide="isPayableTerm(term)" class="mhn-offer__btn-free">
+                        Subscribe Free
+                    </span>
+                </button>
+            </li>
+        </ul>
+
+        <p class="mhn-offer__mission">[%% missionText %%]</p>
+    </div>
+</div>

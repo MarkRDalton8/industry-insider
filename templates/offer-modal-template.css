@@ -1,0 +1,278 @@
+/* Meridian Health — Physician Insights Offer Template */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.unbutton {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  outline: 0;
+  border: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3 { margin: 0; font-weight: normal; }
+p { margin: 0; }
+img, svg { display: block; max-width: 100%; height: auto; }
+* { box-sizing: border-box; }
+
+/* Container */
+
+.mhn-boilerplate {
+  width: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  background-color: [%% backgroundColor %%];
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header */
+
+.mhn-boilerplate__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.mhn-boilerplate__header-controls {
+  padding-left: 20px;
+  height: 18px;
+  display: flex;
+  width: 100%;
+}
+
+.mhn-boilerplate__account {
+  max-width: 250px;
+  display: inline-block;
+  margin-left: auto;
+  height: 100%;
+}
+
+.mhn-boilerplate__close {
+  flex-shrink: 0;
+  width: 56px;
+  height: 100%;
+  margin-left: auto;
+  border-left: 1px solid #F3F4F6;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.mhn-boilerplate__close:hover {
+  background: #F9FAFB;
+}
+
+.mhn-boilerplate__account + .mhn-boilerplate__close {
+  margin-left: 0;
+}
+
+/* Body */
+
+.mhn-offer__body {
+  padding: 40px 36px 32px;
+}
+
+.mhn-offer__icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.mhn-offer__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: [%% accentColor %%];
+  margin-bottom: 10px;
+}
+
+.mhn-offer__headline {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.mhn-offer__description {
+  font-size: 15px;
+  color: #6B7280;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Benefits */
+
+.mhn-offer__benefits {
+  text-align: left;
+  max-width: 360px;
+  margin: 0 auto 32px;
+}
+
+.mhn-offer__benefit {
+  display: flex;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 14px;
+  color: #374151;
+  gap: 12px;
+}
+
+.mhn-offer__benefit:last-child {
+  border-bottom: none;
+}
+
+.mhn-offer__check {
+  color: #0D9488;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+/* Terms */
+
+.mhn-offer__terms {
+  margin-bottom: 24px;
+}
+
+.mhn-offer__term {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  margin-bottom: 12px;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.mhn-offer__term:last-child {
+  margin-bottom: 0;
+}
+
+.mhn-offer__term-info {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.mhn-offer__term-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2px;
+}
+
+.mhn-offer__term-desc {
+  font-size: 13px;
+  color: #6B7280;
+  line-height: 1.4;
+}
+
+/* Button */
+
+.mhn-offer__btn {
+  flex-shrink: 0;
+  padding: 12px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: [%% buttonColor %%];
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.mhn-offer__btn:hover {
+  opacity: 0.9;
+}
+
+.mhn-offer__btn-price {
+  font-weight: 800;
+}
+
+.mhn-offer__btn-period {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.mhn-offer__btn-free {
+  font-weight: 700;
+}
+
+/* Mission footer */
+
+.mhn-offer__mission {
+  font-size: 12px;
+  color: #9CA3AF;
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .mhn-offer__body {
+    padding: 28px 20px 24px;
+  }
+
+  .mhn-offer__headline {
+    font-size: 22px;
+  }
+
+  .mhn-offer__term {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .mhn-offer__term-info {
+    margin-right: 0;
+  }
+
+  .mhn-offer__btn {
+    width: 100%;
+  }
+}
