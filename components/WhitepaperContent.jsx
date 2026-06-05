@@ -30,7 +30,7 @@ export default function WhitepaperContent({ slug }) {
 
   return (
     <>
-      <PianoInit section="resources" tags={wp.tags} />
+      <PianoInit section="resources/article" tags={wp.tags} />
 
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
         <div style={{ fontSize: 12, color: '#999', marginBottom: 22 }}>

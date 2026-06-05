@@ -30,7 +30,7 @@ export default function WebinarContent({ slug }) {
 
   return (
     <>
-      <PianoInit section="webinars" tags={webinar.tags} />
+      <PianoInit section="webinars/article" tags={webinar.tags} />
 
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
         <div style={{ fontSize: 12, color: '#999', marginBottom: 22 }}>
