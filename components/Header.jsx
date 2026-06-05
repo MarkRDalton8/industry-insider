@@ -31,6 +31,8 @@ export default function Header() {
     window.tp.push(['addHandler', 'loginSuccess', function (data) {
       window.tp.pianoId.hide();
       applyUser(data.user);
+      const pvKey = `${SITE.name.toLowerCase().replace(/\s+/g, '_')}_pageviews`;
+      localStorage.setItem(pvKey, '0');
       window.location.href = '/';
     }]);
 
