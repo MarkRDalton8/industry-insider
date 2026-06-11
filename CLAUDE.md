@@ -123,6 +123,38 @@ Progressive profiling timing could be moved to Composer control via `window.show
 
 ---
 
+## Audience Integration — Critical for Segment Building
+
+### cxid-to-Piano-ID Linking Requirement
+
+Piano Audience uses a browser cookie (`cxid`, set by cx.js) to track anonymous visitors. Piano ID custom fields (job-level, industry, etc.) live on the Piano ID profile. These are **two separate identity systems**. For custom field data to appear in Audience segments (including lookalike models), the two must be linked.
+
+**The link only happens when a user visits a page running cx.js while authenticated with Piano ID.** API-only operations (creating users, setting custom fields, pushing CCE events) do NOT establish this link.
+
+This means:
+- Users created via Publisher API who never visit the site **will not appear in Audience segments** even if their custom fields are set correctly
+- Users must have at least one authenticated browser session on a site running cx.js for their Piano ID profile data to flow into Audience
+- After the link is established, new custom field values sync to Audience in near real-time
+- Initial historical data sync after first linking can take up to 24 hours
+
+### For Simulator / Batch User Seeding
+
+When seeding users via the Piano Publisher API (e.g., `scripts/seed_b2b_users.py`), always follow up with `scripts/link_b2b_users.py` to run a headless browser session for each user. The link script:
+1. Sets a known password on each user
+2. Navigates to the site (cx.js sets cxid cookie)
+3. Opens Piano ID login modal and submits email/password (establishes cxid → Piano ID link)
+4. Browses 2 pages to build behavioral signal
+
+Without this step, users will exist in Piano ID with custom fields but will be invisible to Audience.
+
+### Audience Processing Latency
+
+- Custom parameters pushed via cx.js: **2-4 hours** before appearing in Audience segment builder
+- Segment member counts: additional minutes to populate after segment creation
+- Don't conclude segment building failed until at least 4 hours after linking
+
+---
+
 ## C-Level Executive Banner
 
 - Component: `components/CLevelBanner.jsx`
